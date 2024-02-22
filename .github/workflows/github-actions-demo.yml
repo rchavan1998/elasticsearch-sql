@@ -36,7 +36,10 @@ jobs:
       - name: Install Maven dependencies
         run: mvn install -DskipTests=true -Dmaven.javadoc.skip=true -Dgpg.skip=true
 
-
+      - name: Run tests
+        run: |
+          ulimit -a
+          mvn test
 
 
       
