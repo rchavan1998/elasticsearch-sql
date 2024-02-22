@@ -5,13 +5,15 @@ on:
     branches:
       - master
 
-strategy:
-      matrix:
-        java: [openjdk17]
+
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        java: [openjdk17]        
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
