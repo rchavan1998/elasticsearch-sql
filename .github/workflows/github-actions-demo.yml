@@ -5,11 +5,22 @@ on:
     branches:
       - master
 
+strategy:
+      matrix:
+        java: [openjdk17]
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
+       -name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'adopt'
+          java-version: ${{ matrix.java }}
+
 
       
