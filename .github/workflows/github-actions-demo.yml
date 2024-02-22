@@ -21,7 +21,7 @@ jobs:
           distribution: 'adopt'
           java-version: '17'
 
-      - name: Set up Elasticsearch
+      - name: Elasticsearch
         run: |
           sudo rm -rf /var/lib/elasticsearch
           curl https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-8.11.3-amd64.deb -o elasticsearch.deb
@@ -32,6 +32,10 @@ jobs:
           sudo chown -R elasticsearch:elasticsearch /etc/default/elasticsearch
           sudo service elasticsearch start
           sleep 30
+
+      - name: Install Maven dependencies
+        run: mvn install -DskipTests=true -Dmaven.javadoc.skip=true -Dgpg.skip=true
+
 
 
 
