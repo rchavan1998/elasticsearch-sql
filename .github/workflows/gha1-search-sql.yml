@@ -5,23 +5,23 @@ on:
     branches: branch-name
   push:
     branches:
-    - branch-1
+      - branch-1
 
 jobs:
   build:
     strategy:
-      matrix: java
-  - name: Placeholder
+      matrix:
+        java: [17]  
     runs-on: ubuntu-latest
     steps:
-      with: key
-      with:
-        java-version: 1.8
-      with: java-version
-    - name: placeholder_Name
-      uses: actions/checkout@version
-      with:
+      - name: Placeholder
+        with:
+          key: 
         java-version: ${{ matrix.java }}
-      uses: actions/setup-java@version
-      run: mvn install -DskipTests=true -Dmaven.javadoc.skip=true -Dgpg.skip=true
-
+        uses: actions/checkout@version
+      - name: Setup Java
+        uses: actions/setup-java@version
+        with:
+          java-version: ${{ matrix.java }}
+      - name: Build with Maven
+        run: mvn install -DskipTests=true -Dmaven.javadoc.skip=true -Dgpg.skip=true
