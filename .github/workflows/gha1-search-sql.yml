@@ -16,11 +16,11 @@ jobs:
     steps:
       - name: Placeholder
         with:
-          key: 
+          key: key
         java-version: ${{ matrix.java }}
         uses: actions/checkout@version
       - name: Setup Java
-        uses: actions/setup-java@version
+        uses: actions/setup-java@v4
         with:
           java-version: ${{ matrix.java }}
       - name: Build with Maven
