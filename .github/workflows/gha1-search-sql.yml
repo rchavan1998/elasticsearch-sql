@@ -17,8 +17,9 @@ jobs:
       - name: Placeholder
         with:
           key: key
-        java-version: ${{ matrix.java }}
+        # java-version: ${{ matrix.java }}
         uses: actions/checkout@version
+      
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
