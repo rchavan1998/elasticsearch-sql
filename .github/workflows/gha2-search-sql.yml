@@ -1,0 +1,27 @@
+name: gha-result
+on:
+  workflow_dispatch:
+  push:
+    branches:
+    - branch-2
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout
+      uses: actions/checkout@v3.5.0
+    - uses: actions/setup-java@v3.12.0
+      with:
+        distribution: zulu
+        java-version: '17'
+    - run: sudo rm -rf /var/lib/elasticsearch
+    - run: curl https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-8.11.3-amd64.deb -o elasticsearch.deb && sudo dpkg -i --force-confnew elasticsearch.deb
+    - run: sudo cp ./src/test/resources/elasticsearch.yml /etc/elasticsearch/elasticsearch.yml
+    - run: sudo cat /etc/elasticsearch/elasticsearch.yml
+    - run: sudo java -version
+    - run: sudo chown -R elasticsearch:elasticsearch /etc/default/elasticsearch
+    - run: sudo service elasticsearch start
+    - run: sleep 30
+    - run: mvn install -DskipTests=true -Dmaven.javadoc.skip=true -Dgpg.skip=true
+    - run: ulimit -a
+    - run: mvn test
